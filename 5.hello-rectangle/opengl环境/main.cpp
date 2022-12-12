@@ -113,7 +113,7 @@ void createVBOVAO(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO){
     
     
     
-    //VAO存储属性
+    //VAO存储属性，1个VAO可以存储多个顶点属性，和一个EBO
     glGenVertexArrays(1, &VAO);//创建数组对象
     glBindVertexArray(VAO);//绑定VAO
     {
@@ -197,7 +197,7 @@ int main(int argc, const char * argv[]) {
         //绘制三角形
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawElements(GL_LINES, 8, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_LINES, 8, GL_UNSIGNED_INT, 0);//EBO时用这个来绘制
         
         glfwSwapBuffers(window);//不断交换缓冲帧
         glfwPollEvents();//不段接受事件
