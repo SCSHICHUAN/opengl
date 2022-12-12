@@ -110,26 +110,29 @@ void createVBOVAO(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO){
         2,3  //左
     };
     
-    //VAO是解释VBO的内存 一个步长的数据，这里只有一个顶点数据，
+    
+    
+    
+    //VAO存储属性
     glGenVertexArrays(1, &VAO);//创建数组对象
     glBindVertexArray(VAO);//绑定VAO
     {
 
         //顶点数据
-        glGenBuffers(1, &VBO);//1.创建缓冲对象2.缓冲一次给数据多GPU和CPU数据交换快，“1”对象的唯一标识ID
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);//1.把新创建的缓冲绑定到GL_ARRAY_BUFFER目标上2,顶点缓冲对象的缓冲类型是GL_ARRAY_BUFFER
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);//1.顶点数据复制到缓冲的内存中 2.“GL_STATIC_DRAW” 静态数据
+        glGenBuffers(1, &VBO);//生成JL对象
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);//绑定对象为顶点缓冲
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);//拷贝数据到缓冲区
+        
+        //设置顶点属性 “3”表示3个数据为一组
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);//启用顶点属性
+        glBindBuffer(GL_ARRAY_BUFFER, 0);//解绑VBO
         
         //顶点索引
         glGenBuffers(1, &EBO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-        //说明顶点属性VAO
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);//1.说明顶点的属性2.“0”内存读起位置的标识和“location = 0”中的“0”对应，如果同时存储颜色，颜色可以设置为“2”，
-        glEnableVertexAttribArray(0);//启用顶点属性，把顶点和它的属性链接起来，一个步长中可能有顶点颜色数据，
         
-        glBindBuffer(GL_ARRAY_BUFFER, 0);//解绑VBO
     }
 
     /*
@@ -139,6 +142,8 @@ void createVBOVAO(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO){
      */
 
     glBindVertexArray(0);//最后解绑VAO
+    
+    
 }
 
 
