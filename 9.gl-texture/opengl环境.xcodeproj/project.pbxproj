@@ -270,6 +270,7 @@
 		F66B1CFC2948CDE000888396 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		F66B1CFD2948CE0000888396 /* box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box.png; path = "opengl环境/src/box.png"; sourceTree = SOURCE_ROOT; };
 		F66B1CFF2948D40A00888396 /* box2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box2.png; path = "opengl环境/src/box2.png"; sourceTree = SOURCE_ROOT; };
+		F66B1D002948D9AF00888396 /* wall.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = wall.jpeg; path = "opengl环境/src/wall.jpeg"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -663,6 +664,7 @@
 			children = (
 				F66B1CFD2948CE0000888396 /* box.png */,
 				F66B1CFF2948D40A00888396 /* box2.png */,
+				F66B1D002948D9AF00888396 /* wall.jpeg */,
 			);
 			name = src;
 			path = "../../8.gl-着色器封装/opengl环境/src";
