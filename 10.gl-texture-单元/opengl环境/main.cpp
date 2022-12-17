@@ -184,7 +184,7 @@ int main(int argc, const char * argv[]) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);//清空色
         
         
-        //绑定多个纹理 GL_TEXTURE0....15，上面还要告诉，片段着色器位置
+        //绑定多个纹理赋值 GL_TEXTURE0....15，上面还要告诉，片段着色器位置
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
         glActiveTexture(GL_TEXTURE5);
