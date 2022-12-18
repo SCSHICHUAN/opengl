@@ -36,7 +36,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/stan/Desktop/OpenGL/opengl-note/8.gl-&#x7740;&#x8272;&#x5668;&#x5c01;&#x88c5;/opengl&#x73af;&#x5883;"
+      customWorkingDirectory = "$(PROJECT_DIR)/opengl&#x73af;&#x5883;/"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
