@@ -237,7 +237,7 @@ int main(int argc, const char * argv[]) {
         glm::mat4 projection    = glm::mat4(1.0f);
         //创建 模型变换矩阵 观察者变换矩阵 投影矩阵
         model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
-        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));//不是真正的观察者，临时把模型移动到Y=-3的地方
         projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         //检索在着色器中的位置
         unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
