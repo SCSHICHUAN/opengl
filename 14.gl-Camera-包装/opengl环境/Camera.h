@@ -18,7 +18,9 @@ enum Camera_Movement {
     FORWARD,  //前
     BACKWARD, //后
     LEFT,     //左
-    RIGHT     //右
+    RIGHT,    //右
+    UPWARD,   //上
+    DOWN      //下
 };
 
 //默认Camera默认
@@ -99,7 +101,7 @@ private:
         Front = glm::normalize(front);//方向向量
         //也重新计算右和向上向量 normalize归一化
         Right = glm::normalize(glm::cross(Front, WorldUp)); //相机右轴
-        Up    = glm::normalize(glm::cross(Right, Front));   //相加上轴
+        Up    = glm::normalize(glm::cross(Right, Front));   //相机上轴
     }
           
 public:
@@ -115,6 +117,10 @@ public:
             Position -= Right * velocity;
         if (direction == RIGHT)
             Position += Right * velocity;
+        if (direction == UPWARD)
+            Position += Up * velocity;
+        if (direction == DOWN)
+            Position -= Up * velocity;
     }
 
     // 摄像机旋转
