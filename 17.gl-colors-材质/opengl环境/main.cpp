@@ -251,8 +251,12 @@ int main(int argc, const char * argv[]) {
         // -----
         processInput(window);
         
-        float x = sin(glfwGetTime()) * 0.8;
-        lightPos = glm::vec3(x, 0.5f, 0.0);
+        float x = sin(glfwGetTime());
+        float y = sin(glfwGetTime());
+        if(y <= 0.2){
+            y = 0.2;
+        }
+        lightPos = glm::vec3(x, y, 0.0);
         
         // render
         // ------
@@ -261,14 +265,11 @@ int main(int argc, const char * argv[]) {
         
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.use();
-        lightingShader.setVec3("light.position", lightPos);
-        lightingShader.setVec3("viewPos", camera.Position);
-        
-        lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-        lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+        lightingShader.setVec3("light.position", lightPos); //灯的位置
+        lightingShader.setVec3("viewPos", camera.Position); //眼睛位置
         
         
-        // light properties
+        // light properties 灯属性
         glm::vec3 lightColor;
         lightColor.x = static_cast<float>(sin(glfwGetTime() * 2.0));
         lightColor.y = static_cast<float>(sin(glfwGetTime() * 0.7));
@@ -276,18 +277,19 @@ int main(int argc, const char * argv[]) {
         glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); // decrease the influence
         glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
         
-        lightingShader.setVec3("light.ambient", ambientColor);
-        lightingShader.setVec3("light.diffuse", diffuseColor);
-        lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setVec3("light.ambient", ambientColor); //环境
+        lightingShader.setVec3("light.diffuse", diffuseColor); //慢反射
+        lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);//镜面
         
-        
-        
-        
-        // material properties
-        lightingShader.setVec3("material.ambient", 1.0f, 1.0f, 1.0f);
-        lightingShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-        lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f); // specular lighting doesn't have full effect on this object's material
+    
+        // material properties 材质属性
+        lightingShader.setVec3("material.ambient", 1.0f, 1.0f, 1.0f);//环境
+        lightingShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);//慢反射
+        lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f); // 镜面 specular lighting doesn't have full effect on this object's material
         lightingShader.setFloat("material.shininess", 32.0f);
+        
+        
+        
         
         
         
@@ -300,8 +302,7 @@ int main(int argc, const char * argv[]) {
         lightingShader.setMat4("projection", projection);
         lightingShader.setMat4("view", view);
         
-        
-        
+
         //物体
         glm::mat4 model = glm::mat4(1.0f);                               //初始化变换矩阵
         model = glm::translate(model, glm::vec3(0,-0.4,0));           //移动
@@ -321,7 +322,7 @@ int main(int argc, const char * argv[]) {
         model = glm::mat4(1.0f);
         model = glm::translate(model, lightPos);//移动模型
         model = glm::rotate(model, glm::radians(45.0f),glm::vec3(1,1,0));//模型旋转
-        model = glm::scale(model, glm::vec3(0.05f)); // a smaller cube
+        model = glm::scale(model, glm::vec3(0.04f)); // a smaller cube
         lightCubeShader.setMat4("model", model);
         glBindVertexArray(lightCubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);

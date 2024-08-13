@@ -36,21 +36,21 @@ uniform Light light; //灯
 void main()
 {
     // ambient 环境光
-    vec3 ambient = light.ambient * material.ambient;//环境光 = 灯环境强度 * 环境材料反光
+    vec3 ambient = light.ambient * material.ambient;//环境光 = 灯环境光 * 材料环境光
     
     // diffuse 漫反射
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(light.position - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.diffuse * (diff * material.diffuse);//灯慢反射强度 * 慢反射材料反光
+    vec3 diffuse = (light.diffuse * material.diffuse) * diff;//漫反射光 = (灯漫反射光 * 材料漫反射光) * 强度
     
     // specular 镜面反射
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = light.specular * (spec * material.specular);//灯镜面反射强度 * 镜面射材料反光
+    vec3 specular = (light.specular * material.specular) * spec;//镜面光 = (灯镜面光 * 材料镜面光) * 强度
     
-    // 反射光    =   环境光  + 慢反射光 + 镜面反射光
+    // 反射光    =   环境光  + 慢反射光 + 镜面光
     vec3 result = ambient + diffuse + specular;
     FragColor = vec4(result, 1.0);
 } 
