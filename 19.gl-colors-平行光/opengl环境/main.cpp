@@ -119,15 +119,7 @@ int main(int argc, const char * argv[]) {
         lightColor.y = static_cast<float>(sin(glfwGetTime()));
         lightColor.z = static_cast<float>(sin(glfwGetTime()));
         
-        if(lightColor.x < 0.2){
-            lightColor.x = 1;
-            lightColor.y = 1;
-            lightColor.z = 1;
-        }else{
-            lightColor.x = 0.7;
-            lightColor.y = 1.0;
-            lightColor.z = 0.7;
-        }
+       
         
         glm::vec3 diffuseColor = lightColor   * glm::vec3(0.9f); // decrease the influence
         glm::vec3 ambientColor = diffuseColor * glm::vec3(0.5f); // low influence
