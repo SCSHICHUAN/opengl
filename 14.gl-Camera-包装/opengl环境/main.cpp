@@ -31,7 +31,6 @@ bool firstMouse = true;
 // timing
 float deltaTime = 0.0f;    // 当前帧和上一帧之间的时间
 float lastFrame = 0.0f;
-
 //缓冲中数据说明
 void createVBOVAO(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO){
     
