@@ -49,23 +49,25 @@ int main(int argc, const char * argv[]) {
         return -1;
     }
     
-    unsigned int diffuseMap = loadTexture("./src/container2.png");
-    unsigned int specularMap = loadTexture("./src/container2_specular.png");
-    glEnable(GL_DEPTH_TEST);
-    
-    Shader lightingShader("./shaders/colors-vertex.vs", "./shaders/colors-fragment.fs");
-    Shader lightCubeShader("./shaders/lamp-vertexvs.vs", "./shaders/lamp-fragment.fs");
-    
-    
-    
     unsigned int cubeVAO = 0;
     unsigned int lightCubeVAO = 0;
     unsigned int VBO = 0;
     createVBOVAO(cubeVAO,lightCubeVAO,VBO);
     
+    unsigned int diffuseMap = loadTexture("./src/container2.png");
+    unsigned int specularMap = loadTexture("./src/container2_specular.png");
     
     
-   
+    Shader lightingShader("./shaders/colors-vertex.vs", "./shaders/colors-fragment.fs");
+    Shader lightCubeShader("./shaders/lamp-vertexvs.vs", "./shaders/lamp-fragment.fs");
+    
+    lightingShader.use();
+    lightingShader.setInt("material.diffuse", 0);
+    lightingShader.setInt("material.specular", 5);
+    
+    
+    
+    glEnable(GL_DEPTH_TEST);
     //glfw 保活
     while(!glfwWindowShouldClose(window))//glfwWindowShouldClose 关闭事件
     {
@@ -86,9 +88,10 @@ int main(int argc, const char * argv[]) {
         // -----
         processInput(window);
         
-        float x = sin(glfwGetTime()) * 0.8;
-        float y = sin(glfwGetTime()) * 0.8;
+        float x = sin(glfwGetTime());
+        float y = sin(glfwGetTime());
         float z = cos(glfwGetTime());
+        
         
         if(z > 0){
             z = z * (-1);
@@ -98,7 +101,7 @@ int main(int argc, const char * argv[]) {
         
         // render
         // ------
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         // be sure to activate shader when setting uniforms/drawing objects
@@ -113,18 +116,18 @@ int main(int argc, const char * argv[]) {
         lightColor.y = static_cast<float>(sin(glfwGetTime()));
         lightColor.z = static_cast<float>(sin(glfwGetTime()));
         
-        if(lightColor.x < 1 && lightColor.x >= 0.5){
+        if(lightColor.x < 0.2){
             lightColor.x = 1;
             lightColor.y = 1;
             lightColor.z = 1;
         }else{
-            lightColor.x = 1;
-            lightColor.y = 0.7;
+            lightColor.x = 0.7;
+            lightColor.y = 1.0;
             lightColor.z = 0.7;
         }
         
-        glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); // decrease the influence
-        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
+        glm::vec3 diffuseColor = lightColor   * glm::vec3(0.9f); // decrease the influence
+        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.5f); // low influence
         
         lightingShader.setVec3("light.ambient", ambientColor); //环境
         lightingShader.setVec3("light.diffuse", diffuseColor); //慢反射
@@ -144,10 +147,8 @@ int main(int argc, const char * argv[]) {
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
         // bind specular map
-        glActiveTexture(GL_TEXTURE1);
+        glActiveTexture(GL_TEXTURE5);
         glBindTexture(GL_TEXTURE_2D, specularMap);
-        
-        
         
         
 
@@ -160,7 +161,7 @@ int main(int argc, const char * argv[]) {
 
         //物体
         glm::mat4 model = glm::mat4(1.0f);                               //初始化变换矩阵
-        model = glm::translate(model, glm::vec3(0,-0.4,0));           //移动
+        model = glm::translate(model, glm::vec3(0,0,0));           //移动
         //        model = glm::rotate(model, (float)glfwGetTime(),glm::vec3(1,1,0));//旋转
         model = glm::rotate(model, glm::radians(40.0f),glm::vec3(1,1,0));
         model = glm::scale(model, glm::vec3(0.8f));                      //缩放
