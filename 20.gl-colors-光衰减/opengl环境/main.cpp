@@ -99,7 +99,7 @@ int main(int argc, const char * argv[]) {
 //            z = z * (-1);
 //        }
         
-        lightPos = glm::vec3(x, 0, z-2.5);
+        lightPos = glm::vec3(0.5, 0.5, z + 3);
         
         // render
         // ------
