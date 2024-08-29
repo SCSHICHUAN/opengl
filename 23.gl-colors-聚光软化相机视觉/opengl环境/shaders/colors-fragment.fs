@@ -66,8 +66,16 @@ void main()
     // spotlight (soft edges) 聚光灯(软边缘)
     float theta = dot(lightDir, normalize(-light.direction));//片段光向量,spotDir聚光方向向量,夹角,theta 当前的光线
     float epsilon = (light.cutOff - light.outerCutOff);//余弦值差 ϵ=ϕ−γ,内锥和外锥,余弦值差
-    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);//当前光线和外锥,余弦值差 θ−γ <= ϕ−γ
-    diffuse  *= intensity;
+    /*
+     光线在 内外锥 是动态变变化,余弦值在(0-90度)是角度的增加而减小
+     最大差值 = 内锥 - 外锥    ϕ − γ   余弦值
+     动态差值 = 当前角 - 外锥  θ − γ   余弦值
+                |
+                |
+               增大,动态差值减小
+     */
+    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);//当前光线和外锥,内外切光角余弦值差 θ−γ <= ϕ−γ
+    diffuse  *= intensity; //clamp函数，它把第一个参数约束(Clamp)在了0.0到1.0之间
     specular *= intensity;
     
     // attenuation 衰减

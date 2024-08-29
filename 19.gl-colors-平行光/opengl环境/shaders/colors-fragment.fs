@@ -11,7 +11,7 @@ out vec4 FragColor;
 //物体材质
 struct Material {
     sampler2D diffuse; //纹理慢反射
-    sampler2D specular; //纹理节目反射
+    sampler2D specular; //纹理镜面反射
     float shininess;//反射强度
 };
 //灯
@@ -36,6 +36,13 @@ uniform Light light; //灯
 
 void main()
 {
+    
+    /*
+     环境光 = 灯颜色 片段颜色
+     漫反射 = 灯颜色 片段颜色 -灯向量
+     镜面光 = 灯颜色 片段颜色 -灯向量  观察向量
+     */
+    
     // ambient 环境光
     vec3 ambient = light.ambient * texture(material.diffuse, TexCoords).rgb;//环境光 = 灯环境光 * 材料环境光
     
@@ -43,8 +50,8 @@ void main()
     vec3 norm = normalize(Normal);
 //    vec3 lightDir = normalize(light.position - FragPos);
     vec3 lightDir = normalize(-light.direction);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = (light.diffuse * texture(material.diffuse, TexCoords).rgb) * diff;//漫反射光 = (灯漫反射光 * 材料漫反射光) * 强度
+    float diff = max(dot(norm, lightDir), 0.0); //常量
+    vec3 diffuse = (light.diffuse * texture(material.diffuse, TexCoords).rgb) * diff;//漫反射光 = (灯漫反射光 * 材料漫反射光) * 强度常数
     
     // specular 镜面反射
     vec3 viewDir = normalize(viewPos - FragPos);

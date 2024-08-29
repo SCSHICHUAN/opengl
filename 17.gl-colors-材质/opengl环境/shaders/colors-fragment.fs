@@ -35,6 +35,14 @@ uniform Light light; //灯
 
 void main()
 {
+    
+    /*
+     环境光 = 灯颜色 片段颜色
+     漫反射 = 灯颜色 片段颜色 灯向量 片段法线向量
+     镜面光 = 灯颜色 片段颜色 灯向量 片段法线向量 观察向量
+     */
+    
+    
     // ambient 环境光
     vec3 ambient = light.ambient * material.ambient;//环境光 = 灯环境光 * 材料环境光
     

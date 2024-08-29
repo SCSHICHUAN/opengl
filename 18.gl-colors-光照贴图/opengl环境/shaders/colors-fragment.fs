@@ -11,7 +11,7 @@ out vec4 FragColor;
 //物体材质
 struct Material {
     sampler2D diffuse; //纹理慢反射
-    sampler2D specular; //纹理节目反射
+    sampler2D specular; //纹理镜面反射
     float shininess;//反射强度
 };
 //灯
