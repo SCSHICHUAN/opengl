@@ -11,7 +11,7 @@ out vec4 FragColor;
 //物体材质
 struct Material {
     sampler2D diffuse; //纹理慢反射
-    sampler2D specular; //纹理节目反射
+    sampler2D specular; //纹理镜面反射
     float shininess;//反射强度
 };
 //灯
@@ -68,8 +68,8 @@ void main()
     float epsilon = (light.cutOff - light.outerCutOff);//余弦值差 ϵ=ϕ−γ,内锥和外锥,余弦值差
     /*
      光线在 内外锥 是动态变变化,余弦值在(0-90度)是角度的增加而减小
-     最大差值 = 内锥 - 外锥    ϕ − γ   余弦值 - 余弦值  = 最大余弦值 - 最小余弦值
-     动态差值 = 当前角 - 外锥  θ − γ   余弦值 - 余弦值   = 中间余弦值 - 最小余弦值
+     最大差值 = 内锥 - 外锥    ϕ − γ    = 最大余弦值 - 最小余弦值
+     动态差值 = 当前角 - 外锥  θ − γ     = 中间余弦值 - 最小余弦值
                 |
                 |
                增大,动态差值减小
@@ -90,8 +90,6 @@ void main()
     // 反射光    =   环境光  + 慢反射光 + 镜面光
     vec3 result = ambient + diffuse + specular;
     FragColor = vec4(result, 1.0);
-    
-    
     
 } 
 

@@ -47,7 +47,7 @@ void main()
     vec3 ambient = light.ambient * texture(material.diffuse, TexCoords).rgb;//环境光 = 灯环境光 * 材料环境光
     
     // diffuse 漫反射
-    vec3 norm = normalize(Normal);
+    vec3 norm = normalize(Normal);//归一化法向量
 //    vec3 lightDir = normalize(light.position - FragPos);
     vec3 lightDir = normalize(-light.direction);
     float diff = max(dot(norm, lightDir), 0.0); //常量

@@ -23,7 +23,7 @@ void main()
     vec3 ambient = ambientStrength * lightColor;//环境光 = 灯的颜色 * 一个固定的值(减弱一点)
     
     // diffuse 漫反射
-    vec3 norm = normalize(Normal); //归一化
+    vec3 norm = normalize(Normal); //归一化法向量
     vec3 lightDir = normalize(lightPos - FragPos); //计算光源到物体片段的向量 光线向量
     float diff = max(dot(norm, lightDir), 0.0);//计算法向量和光线向量的夹角大小(夹角越小这个值越大,光源在物体正上方最大,其他地方逐渐减下)
     vec3 diffuse = diff * lightColor;// 光源 * (diff 不同强度) = 漫反射颜色
