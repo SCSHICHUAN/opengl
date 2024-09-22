@@ -77,7 +77,7 @@ int main(int argc, const char * argv[]) {
     lightingShader.setInt("material.specular", 5);
     
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile("/Users/stan/Desktop/nanosuit.rar", aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene *scene = importer.ReadFile("/Users/stan/Desktop/nanosuit/nanosuit.obj", aiProcess_Triangulate | aiProcess_FlipUVs);
     
     glEnable(GL_DEPTH_TEST);
     // render loop
@@ -293,7 +293,7 @@ void createVBOVAO(unsigned int &cubeVAO,unsigned int &lightCubeVAO,unsigned int 
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
     
-    //灯泡顶点向量
+    //灯泡顶点向量 和上面的共用一套数据
     glGenVertexArrays(1, &lightCubeVAO);
     glBindVertexArray(lightCubeVAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
