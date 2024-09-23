@@ -74,7 +74,7 @@ int main(int argc, const char * argv[]) {
     //    Shader ourShader("./shaders/colors-vs.vs", "./shaders/colors-fs.fs");
     Shader lightCubeShader("./shaders/lamp-vs.vs", "./shaders/lamp-fs.fs");
     Shader ourShader("./shaders/colors-vs.vs", "./shaders/colors-fs.fs");
-    Model ourModel("/Users/stan/Desktop/nanosuit/nanosuit.obj");
+    Model ourModel("./nanosuit/nanosuit.obj");
     
     
     glEnable(GL_DEPTH_TEST);
@@ -142,11 +142,15 @@ int main(int argc, const char * argv[]) {
         ourShader.use();
         ourShader.setVec3("viewPos", camera.Position);
         ourShader.setFloat("material.shininess", 32.0f);
+//        ourShader.setInt("material.diffuse", 6);
+//        ourShader.setInt("material.specular", 6);
+        
+        
         
         //平行光
-        ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-        ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-        ourShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+        ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);//平行光方向
+        ourShader.setVec3("dirLight.ambient", 1.0f, 1.0f, 1.0f);
+        ourShader.setVec3("dirLight.diffuse", 0.9f, 0.9f, 0.9f);
         ourShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
         
         // 点光源

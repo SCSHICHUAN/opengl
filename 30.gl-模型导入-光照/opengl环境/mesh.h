@@ -65,20 +65,26 @@ public:
         
         for(unsigned int i = 0; i < textures.size(); i++){
             glActiveTexture(GL_TEXTURE0 + i);//激活纹理 GL_TEXTURE0 ....GL_TEXTUREi
+            glBindTexture(GL_TEXTURE_2D,textures[i].id);//绑定纹理的位置为 id
             
             string number;
             string name = textures[i].type;
-            if(name == "texture_diffuse")
+            if(name == "texture_diffuse"){
+                name = "material.diffuse";
                 number = std::to_string(diffuseNr++);
-            else if (name == "texture_specular")
+                
+            }else if (name == "texture_specular"){
+                name = "material.specular";
                 number = std::to_string(specularNr++);
-            else if (name == "texture_normal")
+                
+            }else if (name == "texture_normal"){
                 number = std::to_string(normalNr++);
-            else if (name == "texture_height")
+            }else if (name == "texture_height"){
                 number = std::to_string(heightNr++);
-            
-            glUniform1i(glGetUniformLocation(shader.ID,(name + number).c_str()),i);//也要设置相同的 id 到作色器
-            glBindTexture(GL_TEXTURE_2D,textures[i].id);//绑定纹理的位置为 id
+            }
+//          glUniform1i(glGetUniformLocation(shader.ID,(name + number).c_str()),i);//也要设置相同的 数字 到作色器 GL_TEXTURE0
+            shader.setInt(name.c_str(), i);
+
         }
         
         //draw mseh
